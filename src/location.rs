@@ -1,6 +1,8 @@
 
+use rustc_serialize::json::{self, ToJson, Json};
 
-struct Location {
+#[derive(RustcDecodable, Debug)]
+pub struct Location {
     longitude: f32,
     lagitude: f32,
 }

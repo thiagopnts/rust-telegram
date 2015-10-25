@@ -1,9 +1,11 @@
-mod photo_size;
 
-use photo_size::PhotoSize;
+use super::photo_size::PhotoSize;
 use std::vec::Vec;
 
-struct UserProfilePhotos {
+use rustc_serialize::json::{self, ToJson, Json};
+
+#[derive(RustcDecodable, Debug)]
+pub struct UserProfilePhotos {
     total_count: u32,
     photos: Vec<Vec<PhotoSize>>,
 }

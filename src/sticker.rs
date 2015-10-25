@@ -1,9 +1,10 @@
 
-mod photo_size;
+use super::photo_size::PhotoSize;
 
-use photo_size::PhotoSize;
+use rustc_serialize::json::{self, ToJson, Json};
 
-struct Sticker {
+#[derive(RustcDecodable, Debug)]
+pub struct Sticker {
     file_id: String,
     width: u32,
     height: u32,

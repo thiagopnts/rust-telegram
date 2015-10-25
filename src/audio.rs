@@ -1,4 +1,7 @@
-struct Audio {
+use rustc_serialize::json::{self, ToJson, Json};
+
+#[derive(RustcDecodable, Debug)]
+pub struct Audio {
     file_id: String,
     duration: u64,
     performer: Option<String>,

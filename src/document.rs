@@ -1,8 +1,9 @@
-mod photo_size;
+use super::photo_size::PhotoSize;
 
-use photo_size::PhotoSize;
+use rustc_serialize::json::{self, ToJson, Json};
 
-struct Document {
+#[derive(RustcDecodable, Debug)]
+pub struct Document {
     file_id: String,
     thumb: Option<PhotoSize>,
     file_name: Option<String>,
