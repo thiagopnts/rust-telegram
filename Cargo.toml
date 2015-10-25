@@ -1,0 +1,8 @@
+[package]
+name = "telegram"
+version = "0.1.0"
+authors = ["Thiago Pontes <email@thiago.me>"]
+
+[dependencies]
+hyper = "*"
+rustc-serialize = "*"
