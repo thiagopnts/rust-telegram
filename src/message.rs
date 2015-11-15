@@ -18,7 +18,7 @@ pub struct Message {
     message_id: u64,
     from: User,
     date: u64,
-    chat: User,
+    chat: User, // this should be a Chat, but I need to figure out how to enc/dec enums
     forward_from: Option<User>,
     forward_date: Option<u64>,
     reply_to_message: Option<Box<Message>>,
