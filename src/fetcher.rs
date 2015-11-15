@@ -2,11 +2,12 @@
 use std::io::Read;
 use hyper::{Error, Client};
 use hyper::client::Response;
-use rustc_serialize::json::{Json, BuilderError};
+use serde_json;
+use serde_json::Value;
 use std::collections::BTreeMap;
 
 #[derive(Debug)]
-pub struct TelegramError(Json, Json);
+pub struct TelegramError(Value, Value);
 
 pub struct Fetcher {
     client: Client,
@@ -18,13 +19,14 @@ impl Fetcher {
             client: Client::new(),
         }
     }
-    pub fn get(self, url: String) -> Result<Json, TelegramError> {
+    pub fn get(self, url: String) -> Result<Value, TelegramError> {
         if let Ok(mut res) = self.client.get(&url).send() {
             let mut body = String::new();
             res.read_to_string(&mut body).unwrap();
-            let json = Json::from_str(&body).unwrap();
-            if let Json::Object(obj) = json {
-                if let &Json::Boolean(true) = obj.get("ok").unwrap() {
+            let value: Value = serde_json::from_str(&body).unwrap();
+            let obj = value.as_object();
+            if let Some(obj) = obj {
+                if let &Value::Bool(true) = obj.get("ok").unwrap() {
                     Ok(obj.get("result").unwrap().clone())
                 } else {
                     Err(TelegramError(
@@ -33,10 +35,11 @@ impl Fetcher {
                     ))
                 }
             } else {
-                Err(TelegramError(Json::U64(000u64), Json::String("Unknown error".to_string())))
+                Err(TelegramError(Value::U64(000u64), Value::String("Unknown error".to_string())))
             }
+
         } else {
-                Err(TelegramError(Json::U64(000u64), Json::String("Unknown error".to_string())))
+                Err(TelegramError(Value::U64(000u64), Value::String("Unknown error".to_string())))
         }
     }
 }

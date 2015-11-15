@@ -1,7 +1,7 @@
 
-use rustc_serialize::json::{self, ToJson, Json};
+use serde_json::{self, Value};
 
-#[derive(RustcDecodable, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct PhotoSize {
     id: String,
     width: u32,

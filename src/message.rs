@@ -11,17 +11,17 @@ use super::location::Location;
 use super::document::Document;
 
 use std::collections::BTreeMap;
-use rustc_serialize::json::{self, ToJson, Json};
+use serde_json::{self, Value};
 
-#[derive(RustcDecodable, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Message {
-    id: u64,
+    message_id: u64,
     from: User,
     date: u64,
-    chat: Chat,
+    chat: User,
     forward_from: Option<User>,
-    forward_date: u64,
-    reply_to_message: Box<Option<Message>>, // this should be a Box<Option<Message>> probably
+    forward_date: Option<u64>,
+    reply_to_message: Option<Box<Message>>,
     text: String,
     audio: Option<Audio>,
     document: Option<Document>,
@@ -38,8 +38,16 @@ pub struct Message {
     group_chat_created: Option<bool>,
 }
 
+impl Message {
+    pub fn new(obj: Value) -> Message {
+        let json_str = serde_json::to_string(&obj).unwrap();
+        println!("debug: {:?}", json_str);
+        serde_json::from_str(&json_str).unwrap()
+    }
+}
 
-#[derive(RustcDecodable, Debug)]
+
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Chat {
     User,
     GroupChat,

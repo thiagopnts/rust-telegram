@@ -1,7 +1,7 @@
 
-use rustc_serialize::json::{self, ToJson, Json};
+use serde_json::{self, Value};
 
-#[derive(RustcDecodable, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Contact {
     phone_number: String,
     first_name: String,

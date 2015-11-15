@@ -1,9 +1,9 @@
 
 use super::photo_size::PhotoSize;
 
-use rustc_serialize::json::{self, ToJson, Json};
+use serde_json::{self, Value};
 
-#[derive(RustcDecodable, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Video {
     file_id: String,
     width: u32,

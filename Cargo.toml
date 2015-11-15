@@ -5,4 +5,6 @@ authors = ["Thiago Pontes <email@thiago.me>"]
 
 [dependencies]
 hyper = "*"
-rustc-serialize = "*"
+serde = "*"
+serde_json = "*"
+serde_macros = "*"

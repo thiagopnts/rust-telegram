@@ -5,11 +5,13 @@ use std::io::Read;
 use super::fetcher::{Fetcher, TelegramError};
 use super::user::User;
 use super::message::Message;
+use super::reply::Reply;
 
 use hyper::{Error, Client};
 use hyper::client::Response;
-use rustc_serialize::json::{Json, BuilderError};
 use std::collections::BTreeMap;
+
+use serde_json::Value;
 
 static API_ENDPOINT: &'static str = "https://api.telegram.org/bot";
 
