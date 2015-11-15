@@ -35,7 +35,7 @@ impl Bot {
         }
     }
 
-    pub fn send_message(self, chat_id: String, text: String)
+    pub fn send_message(self, chat_id: &str, text: &str)
             -> Result<Message, TelegramError> {
         let query_string = format!("text={}&chat_id={}", text, chat_id);
 
